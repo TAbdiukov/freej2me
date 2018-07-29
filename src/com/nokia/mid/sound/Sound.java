@@ -78,7 +78,7 @@ public class Sound
   static final int B4 = 3951;
   private static final int MIN_TONE_FREQUENCY = 0;
   private static final int MAX_TONE_FREQUENCY = 3951;
-  private static Sound.NoteTable curNoteTable;
+  private static NoteTable curNoteTable;
   private int curNoteData;
   private static final long MAX_NOTE_DURATION = 3800L;
   private int curNoteDuration;
@@ -189,17 +189,17 @@ public class Sound
       throw new IllegalArgumentException();
     }
     if (curNoteTable == null) {
-      curNoteTable = new Sound.NoteTable(this);
+      curNoteTable = new NoteTable(this);
     }
     int index = curNoteTable.get(freq);
     if (index == -1)
     {
       int lastNote = 0;
       
-      int size = Sound.NoteTable.access$000(curNoteTable).length;
+      int size = NoteTable.MAX_TONES;
       for (int pos = 0; pos < size; pos++)
       {
-        int note = Sound.NoteTable.access$000(curNoteTable)[pos];
+        int note = curNoteTable.listeVal(pos);
         if (note > freq)
         {
           int dif1 = note - freq;
